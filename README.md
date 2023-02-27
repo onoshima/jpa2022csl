@@ -93,7 +93,7 @@ pandoc sample2.md -o sample2.pdf --pdf-engine=lualatex -V documentclass=ltjsarti
 
 - LaTeX エンジンは`lualatex`を選んでください。`--pdf-engine=lualatex`のオプションを加えます。`xelatex`は和文間のスペースが無視されてしまうので日本語文献の性名の間のスペースが消えます。また日本語のフォントを用いるために`-V documentclass=ltjsarticle`をつけてください。
 - `--wrap=preserve`のオプションをつけてください。原因はよく分かっていないのですが`citeproc`が文献を処理するときにこのオプションをつけないと多くの日本語文献で，性と名の間のスペースの一部が改行に置き換わってしまいます。LaTeX で改行は無視されるので結果として性と名の間のスペースが消えてしまいます。
-- `--template=mytemplate.tex`のオプションをつけてください。このテンプレートは Pandoc のデフォルトのテンプレートの関数を一部書き換えてあります。`jpa2022.csl`では，普通の文献と，改行を含む翻訳書の表示を CSL の`display="block"`と`display="indent"`という属性でコントロールしているのですが，デフォルトのテンプレートでは LaTeX に変換されるときに CSL のブロックの後に改行が入ってしまう仕様になっており，もともとある改行と組み合わさって，文献リストに改行が 2 つ挿入されてしまします。そこでもとのテンプレートの該当の箇所を以下のように書き換え，ブロック直後の改行指示`\break`を翻訳書の情報を表示する直前に移動しています（合わせてインデント幅を全角 2 文字分に変更してあります）。
+- `templates`フォルダにある`mytemplate.tex`のファイルを同じフォルダ内に置き`--template=mytemplate.tex`のオプションをつけてください。このテンプレートは Pandoc のデフォルトのテンプレートの関数を一部書き換えてあります。`jpa2022.csl`では，普通の文献と，改行を含む翻訳書の表示を CSL の`display="block"`と`display="indent"`という属性でコントロールしているのですが，デフォルトのテンプレートでは LaTeX に変換されるときに CSL のブロックの後に改行が入ってしまう仕様になっており，もともとある改行と組み合わさって，文献リストに改行が 2 つ挿入されてしまいます。そこでもとのテンプレートの該当の箇所を以下のように書き換え，ブロック直後の改行指示`\break`を翻訳書の情報を表示する直前に移動しています（合わせてインデント幅を全角 2 文字分に変更してあります）。
   ```latex
   $if(csl-refs)$
   \newlength{\cslhangindent}
@@ -122,7 +122,7 @@ pandoc sample2.md -o sample2.pdf --pdf-engine=lualatex -V documentclass=ltjsarti
   $endif$
   ```
   独自のテンプレートを用いて PDF を作成する場合は，CSL の文献処理の箇所を上のように書き換えてもらうと不要な改行がなくなると思います。
-- `modify_bibrecord.lua`を同じフォルダに置いて Pandoc を実行するときに`--lua-filter=modify_bibrecord.lua`のようにオプションとして指定してください。原因をいまいち理解していない部分もあるのですが，Pandoc で（documentclass を ltjsarticle にして）直接 PDF を出力する際に以下の問題が生じます（上 2 つの問題は一度`tex`ファイルにしてから，そのファイルをコンパイルした場合は生じません）。
+- `modify-bibrecord.lua`を同じフォルダに置いて Pandoc を実行するときに`--lua-filter=modify-bibrecord.lua`のようにオプションとして指定してください。原因をいまいち理解していない部分もあるのですが，Pandoc で（documentclass を ltjsarticle にして）直接 PDF を出力する際に以下の問題が生じます（上 2 つの問題は一度`tex`ファイルにしてから，そのファイルをコンパイルした場合は生じません）。
 
   - ページ区切りに使われている en ダッシュ`–`（U+2013）の間に不要なスペースが挿入されてしまう。
   - `'`（U+0027）が`’`（U+2019）に置き換わり不要なアキが挿入されてしまう。
