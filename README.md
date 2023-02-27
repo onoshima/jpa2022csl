@@ -14,7 +14,7 @@ json ファイルの作り方が特殊なため，以下のソフトウェアと
 
 ## 使い方
 
-`jpa2022.csl`をダウンロードします。Pandoc（あるいは Rmarkdown など）で文章を変換するときに`--citeproc --bibliography=<your_reference_file.json> --csl=jpa2022.csl `のようにオプションを与えることで手びき 2022 に対応した文献が出力されます（`<your_reference_file.json`>は自身の文献リストのファイルに置き換えてください）。
+`jpa2022.csl`をダウンロードします。Pandoc（あるいは Rmarkdown など）で文章を変換するときに`--citeproc --bibliography=<your_reference_file.json> --csl=jpa2022.csl `のようにオプションを与えることで手びき 2022 に対応した文献が出力されます（`<your_reference_file.json>`は自身の文献リストのファイルに置き換えてください）。
 
 例えば，`sample`フォルダ内の`sample1.md`という原稿ファイルと書誌情報を含んだ`sample1.json`，`jpa2022.csl`を同じファイルに入れて Mac ならターミナル，Windows ならコマンドプロントで以下のコマンドを実行することで文中の引用および文献が処理された`.docx`ファイルが生成されます。
 
