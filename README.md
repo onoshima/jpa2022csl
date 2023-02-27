@@ -22,7 +22,7 @@ json ファイルの作り方が特殊なため，以下のソフトウェアと
 pandoc sample1.md -o sample1.docx --citeproc --bibliography=sample1.json --csl=jpa2022.csl
 ```
 
-また，参考文献リストのみ欲しいときには`sample`フォルダ内の`sample2.md`のような原稿ファイルを用意します。
+また，参考文献リストのみ欲しいときには`sample`フォルダ内の`sample2.md`のような原稿ファイルを用意して，以下のようなコマンドを実行します。
 
 ```
 pandoc sample2.md -o sample2.docx --citeproc --bibliography=sample2.json --csl=jpa2022.csl
@@ -142,7 +142,8 @@ Word ファイルでは一部文献リストが正確に表示されない箇所
 ## ライセンス
 
 `jpa2022.csl`については改変元の`apa.csl`と同じ Creative Commons Attribution-ShareAlike 3.0 License です。
-その他の私が作ったものについては全て MIT ライセンスです。
+`templates`フォルダ内の`mytemplate.tex`については改変元（John MacFarlane さんによる[https://github.com/jgm/pandoc/blob/main/data/templates/default.latex](https://github.com/jgm/pandoc/blob/main/data/templates/default.latex)）と同じで GPL v2 です。
+その他の私が独自に作ったものについては全て MIT ライセンスです。
 
 ## その他
 
