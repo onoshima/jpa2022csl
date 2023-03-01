@@ -142,7 +142,7 @@ Wordファイルでは一部文献リストが正確に表示されない箇所�
 ## ライセンス
 
 `jpa2022.csl`については改変元の`apa.csl`と同じCreative Commons Attribution-ShareAlike 3.0 Licenseです。
-`templates`フォルダ内の`mytemplate.tex`については改変元（John MacFarlane さんによる[https://github.com/jgm/pandoc/blob/main/data/templates/default.latex](https://github.com/jgm/pandoc/blob/main/data/templates/default.latex)）と同じでGPL v2です。
+`templates`フォルダ内の`mytemplate.tex`については改変元（[PandocのTemplatesのオリジナル](https://github.com/jgm/pandoc/blob/main/data/templates/default.latex)）と同じでGPL v2です。
 その他の私が独自に作ったものについては全てMITライセンスです。
 
 ## その他
