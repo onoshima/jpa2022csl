@@ -108,10 +108,10 @@ if (Translator.BetterCSLJSON) {
   /* 日本語文献の場合の文中・文末用フィールドの追加*/
   if ("curator" in csl) {
     if ("editor" in csl) {
-      csl["executive-producer"] = makeIntextJname(csl.editor);
+      csl["chair"] = makeIntextJname(csl.editor);
     }
     if ("producer" in csl) {
-      csl["executive-producer"] = makeIntextJname(csl.producer);
+      csl["narrator"] = makeIntextJname(csl.producer);
     }
     if ("author" in csl) {
       csl["executive-producer"] = makeIntextJname(csl.author);
@@ -120,10 +120,10 @@ if (Translator.BetterCSLJSON) {
 
   /* 翻訳書の文中・文末用フィールドの追加*/
   if ("host" in csl) {
-    csl["executive-producer"] = makeIntextJname(csl.host);
+    csl["script-writer"] = makeIntextJname(csl.host);
   }
   if ("guest" in csl) {
-    csl["executive-producer"] = makeIntextJname(csl.guest);
+    csl["organizer"] = makeIntextJname(csl.guest);
   }
 
   /* その他の細々とした処理*/

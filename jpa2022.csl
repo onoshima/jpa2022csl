@@ -330,6 +330,10 @@
         jurisdiction: 翻訳書出版社のstandard variable
         submitted: 翻訳書刊行年のdate variable
         executive-producer: 日本語文献の文中引用のためのname variable
+        chair: 日本語文献文中引用のためのname variable（編集者）
+        narrator: 日本語文献文中引用のためのname variable（監修者）
+        organizer: 翻訳書文中引用のためのname variable（監訳者）
+        script-writer: 翻訳書文中引用のためのname variable （翻訳者）
           2人の場合[{"family":"田中・佐藤"}]
           3人以上の場合[{"family":"田中他"}]のように著者は1人扱いなことに注意
           ※ このせいで不具合が生じるかもしれないので将来的には要検討
@@ -344,20 +348,32 @@
         </names>
       </if>
       <else>
-        <names variable="executive-producer" suffix="，"/>
+        <choose>
+          <if variable="author" match="none">
+            <!-- 著者なしの場合，監修者，編集者の優先順位-->
+            <names variable="narrator" suffix="，">
+              <substitute>
+                <names variable="chair"/>
+              </substitute>
+            </names>
+          </if>
+          <else>
+            <names variable="executive-producer" suffix="，"/>
+          </else>
+        </choose>
       </else>
     </choose>
   </macro>
   <macro name="honyaku-intext">
     <choose>
       <if variable="guest host" match="all">
-        <names variable="executive-producer" prefix=" " suffix="監訳 "/>
+        <names variable="organizer" prefix=" " suffix="監訳 "/>
       </if>
       <else-if variable="guest">
-        <names variable="executive-producer" prefix=" " suffix="監訳 "/>
+        <names variable="organizer" prefix=" " suffix="監訳 "/>
       </else-if>
       <else-if variable="host">
-        <names variable="executive-producer" prefix=" " suffix="訳 "/>
+        <names variable="script-writer" prefix=" " suffix="訳 "/>
       </else-if>
     </choose>
     <date variable="submitted">
@@ -408,7 +424,7 @@
   </macro>
   <macro name="author-bib-sort">
     <!--  文献リストsort用，日本語文献はyomiのfieldを
-          を文献リスト用に整え，英語文献はauthor-bibを利用-->
+          文献リスト用に整え，英語文献はauthor-bibを利用-->
     <choose>
       <if variable="curator">
         <names variable="curator">
