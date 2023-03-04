@@ -329,7 +329,7 @@
         dimensions: 翻訳書籍名のstandard variable
         jurisdiction: 翻訳書出版社のstandard variable
         submitted: 翻訳書刊行年のdate variable
-        executive-producer: 日本語文献の文中引用のためのname variable
+        executive-producer: 日本語文献の文中引用のためのname variable（著者）
         chair: 日本語文献文中引用のためのname variable（編集者）
         narrator: 日本語文献文中引用のためのname variable（監修者）
         organizer: 翻訳書文中引用のためのname variable（監訳者）
