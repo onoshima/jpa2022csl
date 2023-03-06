@@ -16,7 +16,7 @@
     <category citation-format="author-date"/>
     <category field="psychology"/>
     <category field="generic-base"/>
-    <updated>2023-02-27T12:00:00+00:00</updated>
+    <updated>2023-03-06T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -44,6 +44,8 @@
         <single>issue</single>
         <multiple>issues</multiple>
       </term>
+      <!-- 英文献変更：日本語文献の文中引用用に割り当てる-->
+      <term name="and others">他</term>
     </terms>
   </locale>
   <locale xml:lang="af">
@@ -329,14 +331,6 @@
         dimensions: 翻訳書籍名のstandard variable
         jurisdiction: 翻訳書出版社のstandard variable
         submitted: 翻訳書刊行年のdate variable
-        executive-producer: 日本語文献の文中引用のためのname variable（著者）
-        chair: 日本語文献文中引用のためのname variable（編集者）
-        narrator: 日本語文献文中引用のためのname variable（監修者）
-        organizer: 翻訳書文中引用のためのname variable（監訳者）
-        script-writer: 翻訳書文中引用のためのname variable （翻訳者）
-          2人の場合[{"family":"田中・佐藤"}]
-          3人以上の場合[{"family":"田中他"}]のように著者は1人扱いなことに注意
-          ※ このせいで不具合が生じるかもしれないので将来的には要検討
   -->
   <!-- ここから日本語文献表示用に追加したマクロ-->
   <macro name="author-intext-j">
@@ -348,32 +342,36 @@
         </names>
       </if>
       <else>
-        <choose>
-          <if variable="author" match="none">
-            <!-- 著者なしの場合，監修者，編集者の優先順位-->
-            <names variable="narrator" suffix="，">
-              <substitute>
-                <names variable="chair"/>
-              </substitute>
-            </names>
-          </if>
-          <else>
-            <names variable="executive-producer" suffix="，"/>
-          </else>
-        </choose>
+        <names variable="author" suffix="，">
+          <name form="short" delimiter="・">
+            <name-part name="given" prefix=" "/>
+          </name>
+          <et-al term="and others"/>
+          <!-- 著者がいない場合は監修者，編集の順番で代替-->
+          <substitute>
+            <names variable="producer"/>
+            <names variable="editor"/>
+          </substitute>
+        </names>
       </else>
     </choose>
   </macro>
   <macro name="honyaku-intext">
     <choose>
       <if variable="guest host" match="all">
-        <names variable="organizer" prefix=" " suffix="監訳 "/>
+        <names variable="guest" prefix=" " suffix="監訳 ">
+          <name form="short" delimiter="・"/>
+        </names>
       </if>
       <else-if variable="guest">
-        <names variable="organizer" prefix=" " suffix="監訳 "/>
+        <names variable="guest" prefix=" " suffix="監訳 ">
+          <name form="short" delimiter="・"/>
+        </names>
       </else-if>
       <else-if variable="host">
-        <names variable="script-writer" prefix=" " suffix="訳 "/>
+        <names variable="host" prefix=" " suffix="訳 ">
+          <name form="short" delimiter="・"/>
+        </names>
       </else-if>
     </choose>
     <date variable="submitted">
@@ -2334,7 +2332,7 @@
       <text variable="locator"/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true" collapse="year" givenname-disambiguation-rule="primary-name-with-initials">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="false" collapse="year" givenname-disambiguation-rule="by-cite">
     <sort>
       <key macro="author-bib-sort" names-min="3" names-use-first="1"/>
       <key macro="date-sort-group"/>

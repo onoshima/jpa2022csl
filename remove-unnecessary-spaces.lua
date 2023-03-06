@@ -55,3 +55,15 @@ function Para(elem)
   end
   return elem
 end
+
+-- 他の前後のspace削除
+function Cite(elem)
+  for i, value in ipairs(elem.c) do
+    if value.text == '他' then
+      table.remove(elem.c, i+1)
+      table.remove(elem.c, i-1)
+      break
+    end
+  end
+  return elem
+end

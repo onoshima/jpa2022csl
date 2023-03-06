@@ -81,15 +81,7 @@ if (Translator.BetterCSLJSON) {
   }
 
   /* その他細々としたもの*/
-  function makeIntextJname(arrNames) {
-    if (arrNames.length == 1) {
-      return [{ family: arrNames[0]["family"] }];
-    } else if (arrNames.length == 2) {
-      return [{ family: arrNames[0]["family"] + "・" + arrNames[1]["family"] }];
-    } else {
-      return [{ family: arrNames[0]["family"] + "他" }];
-    }
-  }
+
   function ignoreFirstEdition() {
     if (/1|第1版|1st ed\.|1st/.test(csl.edition)) {
       delete csl.edition;
@@ -104,27 +96,6 @@ if (Translator.BetterCSLJSON) {
   /* メインの処理*/
   const lowercasedZotExtra = lowercaseFields(zotero.extra);
   mapZotToCSL(lowercasedZotExtra);
-
-  /* 日本語文献の場合の文中・文末用フィールドの追加*/
-  if ("curator" in csl) {
-    if ("editor" in csl) {
-      csl["chair"] = makeIntextJname(csl.editor);
-    }
-    if ("producer" in csl) {
-      csl["narrator"] = makeIntextJname(csl.producer);
-    }
-    if ("author" in csl) {
-      csl["executive-producer"] = makeIntextJname(csl.author);
-    }
-  }
-
-  /* 翻訳書の文中・文末用フィールドの追加*/
-  if ("host" in csl) {
-    csl["script-writer"] = makeIntextJname(csl.host);
-  }
-  if ("guest" in csl) {
-    csl["organizer"] = makeIntextJname(csl.guest);
-  }
 
   /* その他の細々とした処理*/
   ignoreFirstEdition();
